@@ -8,6 +8,7 @@
 
 $padding-top-header: 20px;
 $height-header: 93px;
+$height-header-smMin: 73px;
 $height-fs-md: 500px;
 $pad-top-lg: 135px;
 $pad-top-sm: 100px;
@@ -16,6 +17,11 @@ $pad-top-xs: 80px;
 body {
 	font-family: 'OpenSans';
 	color: $black;
+	font-size: 16px;
+
+	@include mobileLg-block {
+		font-size: 14px;
+	}
 }
 
 body a {
@@ -26,6 +32,7 @@ body a {
 
 .first-screen {
 	height: 100vh;
+	position: relative;
 
 	@include md-block {
 		height: calc(#{$height-fs-md + $height-header});
@@ -33,6 +40,7 @@ body a {
 
 	&_bg {
 		@include bg();
+		max-width: 100%;
 
 		@include md-block {
 			height: calc(#{$height-fs-md + $height-header});
@@ -69,6 +77,10 @@ body a {
 		padding-top: 0;
 		transition: all 0.3s ease;
 	}
+
+	@include mobileLg-block {
+		padding-top: 0;
+	}
 }
 
 .site-header {
@@ -76,12 +88,18 @@ body a {
 	height: $height-header;
 	padding: 0 30px;
 	align-items: center;
-	@include row-flex();
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
 	position: relative;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.22);
 
 	@include smMin-block {
-		height: 73px;
+		height: $height-header-smMin;
+	}
+
+	@include mobileLg-block {
+		padding: 0 15px;
 	}
 
 	&::before {
@@ -121,7 +139,7 @@ body a {
 						color: $orange;
 					}
 
-					@include md-block {
+					@include lgMin-block {
 						font-size: 36px;
 					}
 
@@ -130,12 +148,12 @@ body a {
 					}
 				}
 
-				@include md-block {
+				@include lgMin-block {
 					margin-bottom: 20px;
 				}
 			}
 			
-			@include md-block {
+			@include lgMin-block {
 				display: list-item;
 				text-align: center;
 				padding-top: 130px;
@@ -143,7 +161,7 @@ body a {
 		}
 		
 
-		@include md-block {
+		@include lgMin-block {
 			position: fixed;
 			width: 100%;
 			height: 100%;
@@ -165,6 +183,7 @@ body a {
 		margin-right: 5px;
 		height: 60%;
 		z-index: 5;
+		max-width: 200px;
 
 		img {
 			height: 100%;
@@ -182,7 +201,7 @@ body a {
 			font-size: 18px;
 		}
 
-		@include md-block {
+		@include lgMin-block {
 			margin-left: auto;
 			font-size: 23px;
 		}
@@ -191,8 +210,12 @@ body a {
 			font-size: 20px;
 		}
 
-		@include xxs-block {
+		@include mobileLg-block {
 			font-size: 18px;
+		}
+
+		@include mobileS-block {
+			margin-bottom: 5px;		
 		}
 	}
 
@@ -207,6 +230,8 @@ body a {
 
 		@include xs-block {
 			margin-left: 15px;
+			height: 16px;
+			width: 25px;
 		}
 
 		.menu-burger_line {
@@ -217,6 +242,10 @@ body a {
 			position: absolute;
 			top: 9px;
 			transition: all 0.3s ease 0s;
+
+			@include xs-block {
+				top: 7px;
+			}
 		}
 		
 		&::before, &::after{
@@ -245,15 +274,23 @@ body a {
 			&::before {
 				transform: rotate(45deg);
 				top: 9px;	
+
+				@include xs-block {
+					top: 7px;
+				}
 			}
 
 			&::after {
 				transform: rotate(-45deg);
-				bottom: 9px;	
+				bottom: 9px;
+				
+				@include xs-block {
+					bottom: 7px;
+				}
 			}
 		}
 
-		@include md-block {
+		@include lgMin-block {
 			display: block;
 		}
 	}
@@ -266,11 +303,17 @@ body a {
 	text-transform: uppercase;
 	padding-top: calc(#{$padding-top-header + $height-header});
 	position: relative;
+	padding-right: 30px;
+	padding-left: 30px;
+	text-shadow: 2px 2px 0 grey;
 
 	@include md-block {
 		height: $height-fs-md;
 		padding-top: $height-header;
-		text-shadow: 2px 2px 0 grey;
+	}
+
+	@include mobileLg-block {
+		padding-top: $height-header-smMin;
 	}
 
 	&_bg {
@@ -291,7 +334,7 @@ body a {
 
 	&_text {
 		@include col();
-		@include size(6);
+		@include size(8);
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -304,15 +347,14 @@ body a {
 
 	&_contact {
 		@include col();
-		@include size(6);
+		@include size(4);
 		height: 100%;
 		display: flex;
-		justify-content: space-between;
+		justify-content: flex-end;
 		align-items: flex-end;
 		padding-bottom: 40px;
 
-		@include smMin-block {
-			justify-content: flex-end;
+		@include sm-block {
 			padding-bottom: 20px;
 		}
 
@@ -321,31 +363,28 @@ body a {
 			height: auto;
 			justify-content: center;
 		}
+
+		@include mobileLg-block {
+			padding-bottom: 0;
+		}
 	}
 
 	&_title {
 		font-size: 94px;
 		line-height: 92px;
 		font-family: 'OpenSans-extrabold';
-		margin-bottom: 5vh;
-
-		@include md-block {
-			font-size: 78px;
-		}
+		margin-bottom: 20px;
 
 		@include smMin-block {
-			font-size: 62px;
+			font-size: 65px;
+			line-height: 75px;
 		}
 
 			&__text-big {
 				font-size: 124px;
 
-				@include md-block {
-					font-size: 108px;
-				}
-
 				@include smMin-block {
-					font-size: 92px;
+					font-size: 100px;
 				}
 			}
 	}
@@ -353,14 +392,15 @@ body a {
 	&_subtitle {
 		font-size: 28px;
 		text-transform: none;
-		margin-bottom: 5vh;
+		margin-bottom: 50px;
 
 		@include md-block {
-			font-size: 24px;
+			font-size: 23px;
+			margin-bottom: 30px;
 		}
 
-		@include smMin-block {
-			font-size: 20px;
+		@include xs-block {
+			font-size: 21px;
 		}
 	}
 
@@ -377,15 +417,10 @@ body a {
 		background-color: #4db848;
 		background-image: linear-gradient(to bottom, #55dd49 0%, #3da139 100%);
 
-
 		@include md-block {
 			font-size: 28px;
-		}
-
-		@include smMin-block {
-			font-size: 24px;
-			width: 260px;
-			height: 67px;
+			width: 270px;
+			height: 69px;
 			line-height: 67px;
 			border-radius: 24px;
 		}
@@ -396,11 +431,7 @@ body a {
 			box-shadow: none;
 
 			@include md-block {
-				font-size: 24px;
-			}
-
-			@include smMin-block {
-				font-size: 18px;
+				font-size: 20px;
 			}
 		}
 
@@ -424,21 +455,15 @@ body a {
 		width: 40px;
 		border: 2px solid $white;
 		border-radius: 50%;
-		position: relative;
+		position: absolute;
 		opacity: 0.7;
-		display: block;
 		cursor: pointer;
+		bottom: 40px;
+		left: 50%;
+		background: url(../img/chevron-down-solid.svg) no-repeat center/70%;
 
-		&__left {
-			@include arr();
-			left: 24px;
-			transform: rotate(45deg);
-		}
-
-		&__right {
-			@include arr();
-			right: 24px;
-			transform: rotate(-45deg);
+		@include sm-block {
+			bottom: 20px;
 		}
 
 		@include smMin-block {
@@ -449,10 +474,16 @@ body a {
 	&_ico a {
 		width: 40px;
 		height: 40px;
-		border-radius: 20px;
+		border-radius: 50%;
 		display: inline-block;
-		margin-left: 15px;
 
+		&:nth-child(2n) {
+			margin: 0 15px;
+
+			@include smMin-block {
+				margin: 0 10px;
+			}
+		}
 	}
 
 	&_ico__vk {
@@ -493,11 +524,19 @@ body a {
 	&::before {
 		@include line-h2();
 		margin-right: 25px;
+
+		@include xs-block {
+			margin-right: 15px;
+		}
 	}
 
 	&::after {
 		@include line-h2();
 		margin-left: 25px;
+
+		@include xs-block {
+			margin-left: 15px;
+		}
 	}
 
 	@include sm-block {
@@ -507,22 +546,27 @@ body a {
 	@include xs-block {
 		font-size: 26px;
 		margin-bottom: 60px;
-
 	}
 
-	@include xxs-block {
-		font-size: 24px;
+	@include mobileLg-block {
+		font-size: 20px;
 	}
 }
 
 .what-is-ed {
 	&_main {
 		@include row-flex();
-		padding: 0 35px;
+		@include col();
+		@include size(12);
+		padding: 0 30px;
 
 		@include sm-block {
 			flex-direction: column;
 			align-items: center;
+		}
+
+		@include mobileMd-block {
+			padding: 0;
 		}
 	}
 
@@ -531,16 +575,25 @@ body a {
 		display: flex;
 		flex-direction: column;
 
-		@include sm-block {
-			width: 60%;
+		@include md-block {
+			width: 32%;
 		}
 
-		@include smMin-block {
-			width: 70%;
+		@include sm-block {
+			width: 65%;			
+			margin-bottom: 40px;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
 		}
-		
-		@include xxs-block {
-			width: 85%;
+
+		@include xs-block {
+			width: 90%;
+		}
+
+		@include mobileMd-block {
+			width: 100%;
 		}
 	}
 
@@ -556,15 +609,29 @@ body a {
 			}
 		}
 
+		@include mobileMd-block {
+			align-items: center;
+			flex-direction: column;
+		}
+
 		img {
 			margin-right: 30px;
 			display: block;
 			width: 50px;
+
+			@include mobileMd-block {
+				margin-bottom: 20px;
+				margin-right: 0;
+			}
 		}
 
 		&__text {
 			font-size: 16px;
 			width: calc(100% - 50px - 30px);
+
+			@include mobileMd-block {
+				width: 100%;
+			}
 			
 		p {
 			font-size: 22px;
@@ -577,11 +644,20 @@ body a {
 			line-height: 24px;
 			list-style-type: disc;
 			margin-left: 20px;
+
+			@include mobileMd-block {
+				text-align: left;
+				margin-left: 14%;
+			}
 		}
 
 		.text-lighter {
 			font-size: 13px;
 			color: #a8a8a8;
+		}
+
+		@include mobileMd-block {
+			text-align: center;
 		}
 		}
 	}
@@ -591,8 +667,12 @@ body a {
 		width: 40%;
 		object-fit: contain;
 
+		@include md-block {
+			width: 35%;
+		}
+
 		@include sm-block {
-			width: 60%;
+			width: 50%;
 		}
 	}
 }
@@ -619,6 +699,10 @@ body a {
 		@include smMin-block {
 			font-size: 42px;
 		}
+
+		@include mobileLg-block {
+			font-size: 32px;
+		}
 	}
 
 	&_subtitle {
@@ -627,6 +711,10 @@ body a {
 
 		@include smMin-block {
 			font-size: 28px;
+		}
+
+		@include mobileLg-block {
+			font-size: 24px;
 		}
 	}
 
@@ -654,7 +742,7 @@ body a {
 			margin-bottom: 50px;
 		}
 
-		@include size-xxs(7);
+		@include size-mobileLg(7);
 
 		.items-img {
 			width: 80%;
@@ -674,6 +762,10 @@ body a {
 			position: absolute;
 			top: 40%;
 			right: -12%;
+
+			@include mobileMdMin-block {
+				right: -30%;
+			}
 		}
 
 		&:last-child::after {
@@ -687,20 +779,20 @@ body a {
 .slider-stars {
 	text-align: center;
 	padding-top: 95px;
-	background: #fafafa url(../img/slider-bg.png) no-repeat center 240px;
+	background: #fafafa;
 	padding-bottom: 70px;
-	position: relative;
 
 	@include smMin-block {
 		padding-top: 75px;
-		background-position-y: 190px;
 		padding-bottom: 50px;
 	}
 
 	@include xs-block {
-		padding-top: 75px;
-		background-position-y: 150px;
 		padding-bottom: 30px;
+	}
+
+	& .wrapper {
+		position: relative;
 	}
 	
 	&_title {
@@ -708,29 +800,41 @@ body a {
 		color: $black;
 		font-family: 'OpenSans-bold';
 		text-transform: uppercase;
-		margin-bottom: 210px;
 
 		@include smMin-block {
-			margin-bottom: 150px;
 			font-size: 48px;
 		}
 		@include xs-block {
 			font-size: 36px;
-			margin-bottom: 120px;
+		}
+		@include mobileLg-block {
+			font-size: 28px;
+		}
+	}
+
+	&_img {
+		height: 95px;
+		padding: 40px 0;
+
+		@include sm-block {
+			height: 80px;
+			padding: 30px 0;
+		}
+
+		@include mobileLg-block {
+			height: 60px;
+			padding: 20px 0;
 		}
 	}
 
 	&_main {
 		@include row-flex();
-		margin: 0 auto;
-		justify-content: center;
 	}
 
 	& .swiper-container {
 		@include col();
 		@include size(9);
-		margin: 0 auto 0 auto;
-		height: auto;
+		margin: 0 auto;
 		margin-bottom: 40px;
 	}
 
@@ -751,6 +855,10 @@ body a {
 				@include smMin-block {
 					margin-bottom: 20px;
 				}
+				@include mobileLg-block {
+					font-size: 16px;
+					line-height: 28px;
+				}
 			}
 		}
 
@@ -761,10 +869,14 @@ body a {
 			border: 4px solid #4db848;
 			margin-bottom: 45px;
 			overflow: hidden;
+
+			@include mobileMd-block {
+				width: 150px;
+				height: 150px;
+				}
 			
 			img {
 				width: 101%;
-				max-width: none;
 			}
 		}
 
@@ -775,6 +887,10 @@ body a {
 			@include col();
 			@include size(6);
 			@include size-smMin(8);
+			@include size-mobileLg(10);
+			@include mobileLg-block {
+				font-size: 20px;
+			}
 		}
 
 		&__prof {
@@ -782,6 +898,8 @@ body a {
 			@include col();
 			@include size(6);
 			@include size-smMin(8);
+			@include size-mobileLg(11);
+			margin-bottom: 30px;
 		}
 	}
 
@@ -789,7 +907,7 @@ body a {
 		width: 20px;
 		color: $grey;
 		font-weight: bold;
-		top: 80vh;
+		top: 300px;
 		position: absolute;
 
 		&:hover{
@@ -845,6 +963,8 @@ body a {
 	position: relative;
 	padding-bottom: 56.25%;
 	height: 0;
+	max-width: 1340px;
+	margin: 0 auto;
 	
 		iframe {
 			position:absolute;
@@ -853,6 +973,15 @@ body a {
 			left:0;
 			top:0;
 			border: none;
+
+			@media screen and (min-width: 1024px) {
+				position: unset;
+			}
+		}
+
+		@media screen and (min-width: 1024px) {
+			height: 800px;
+			padding-bottom: 0;
 		}
 }
 
@@ -869,16 +998,18 @@ body a {
 			padding: 80px 30px 50px 30px;
 		}
 
-		@include xs-block {
+		@include smMin-block {
 			justify-content: center;
+		}
+
+		@include mobileLg-block {
+			padding: 50px 15px 30px 15px;
 		}
 	}
 
 	&_logo {
 		@include col();
 		@include size(3);
-		@include size-lg(3.3);
-		@include size-md(4);
 		@include size-smMin(5.5);
 		@include size-xs(9);
 		@include xs-block {
@@ -895,14 +1026,15 @@ body a {
 	&_copyright {
 		@include col();
 		@include size(3);
-		@include size-lg(3.3);
-		@include size-md(4);
 		@include size-smMin(5.5);
 		@include size-xs(9);
 		font-size: 13px;
 	}
 
 	&_social-media {
+		@include col();
+		@include size(3);
+		width: inherit;
 		display: flex;
 		justify-content: flex-end;
 
@@ -917,16 +1049,23 @@ body a {
 			background-color: #e3e2e3;
 			width: 53px;
 			height: 53px;
-			border-radius: 26px;
+			border-radius: 50%;
 			background-position: center;
 			background-repeat: no-repeat;
 			background-size: 60%;
-			margin-left: 20px;
+
+			&:nth-child(2n) {
+				margin: 0 20px;
+			}
 
 			@include sm-block {
 				width: 46px;
 				height: 46px;
-				border-radius: 23px;	
+			}
+
+			@include mobileMdMin-block {
+				width: 40px;
+				height: 40px;
 			}
 		}
 			
@@ -975,16 +1114,22 @@ body a {
 
 	&_content {
 		background: $white;
-		max-width: 550px;
+		max-width: 475px;
 		padding: 50px;
 		position: relative;
+		box-sizing: border-box;
+
+		@include mobileLg-block {
+			max-width: 100%;
+			width: 100%;
+		}
 	}
 
 	&_close {
 		display: block;
 		position: absolute;
 		font-size: 20px;
-		right: 25px;
+		right: 5%;
 		top: 25px;
 		cursor: pointer;
 
@@ -1000,16 +1145,38 @@ body a {
 		margin-bottom: 15px;
 		justify-content: left;
 
+		@include mobileMd-block {
+			flex-direction: column;
+		}
+
 		&__title {
 			font-size: 18px;
 			color: $green;
 			font-family: 'OpenSans-bold';
 			flex-grow: 1;
+
+			@include mobileLg-block {
+				font-size: 16px;
+				line-height: 29px;
+			}
+
+			@include mobileMd-block {
+				margin-bottom: 5px;
+			}
 		}
 
 		&__input {
-			min-width: 250px;
+			min-width: 200px;
 			margin-left: 20px;
+
+			@include mobileLg-block {
+				margin-left: 10px;
+			}
+
+			@include mobileMd-block {
+				margin-left: 0;
+				height: 30px;
+			}
 
 			&:focus {
 				outline: 2px solid $orange;
